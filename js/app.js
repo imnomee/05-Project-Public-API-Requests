@@ -3,7 +3,6 @@ const searchContainer = document.getElementsByClassName("search-container")[0];
 const body = document.getElementsByTagName("body")[0];
 
 const apiURL = "https://randomuser.me/api/?results=12&nat=ca,us,gb,nz,au";
-let profileIndex = 0;
 
 createSearch();
 
@@ -745,22 +744,6 @@ function createCards(data) {
             showModal(value);
         });
     });
-
-    // data.results.forEach(result => {
-    //     const dataName = result.name.first;
-
-    //     cards.forEach((card, value) => {
-    //         const name = card.lastElementChild.firstElementChild.textContent;
-
-    //         card.addEventListener("click", function() {
-    //             if (dataName == name) {
-    //                 console.log("Matched: at ", value);
-    //                 showModal(value);
-    //             } else "nothing";
-    //         });
-    //     });
-    // });
-    // cards.forEach((i, value) => console.log(value));
 }
 
 function showModal(index) {
@@ -808,7 +791,7 @@ function showModal(index) {
     const prevBtn = document.getElementById("modal-prev");
     const nextBtn = document.getElementById("modal-next");
     const cards = document.querySelectorAll(".card");
-    
+
     prevBtn.addEventListener("click", e => {
         if (cards[index].previousElementSibling) {
             modalContainer.style.display = "none";
@@ -838,21 +821,23 @@ function createSearch() {
 
     const searchInput = document.getElementById("search-input");
     const searchBtn = document.getElementById("search-submit");
+
     searchBtn.addEventListener("click", e => {
-        const text = searchInput.value;
-        console.log(searchInput.value);
-        if (text == "" || text.length < 3) {
-            createCards(userProfiles);
-        } else {
-            const cards = document.querySelectorAll(".card");
+        createCards(userProfiles);
+        const cards = document.querySelectorAll(".card");
+        const text = searchInput.value.toLowerCase();
+        const searchResults = [];
+        if (text != "" && text.length > 2) {
             cards.forEach(card => {
-                const name =
-                    card.lastElementChild.firstElementChild.textContent;
+                const name = card.lastElementChild.firstElementChild.textContent.toLowerCase();
                 if (name.includes(text)) {
                     gallery.innerHTML = "";
-                    gallery.append(card);
+                    searchResults.push(card);
                 }
             });
+            searchResults.forEach(search => gallery.append(search));
+        } else {
+            createCards(userProfiles);
         }
         searchInput.value = "";
     });
