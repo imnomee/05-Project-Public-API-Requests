@@ -823,6 +823,7 @@ function createSearch() {
     const searchBtn = document.getElementById("search-submit");
 
     searchBtn.addEventListener("click", e => {
+        e.preventDefault();
         createCards(userProfiles);
         const cards = document.querySelectorAll(".card");
         const text = searchInput.value.toLowerCase();
