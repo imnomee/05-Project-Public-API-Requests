@@ -843,3 +843,8 @@ function createSearch() {
         searchInput.value = "";
     });
 }
+
+///jQuery
+console.log($(".card"));
+$(".card").css("backgroundColor", "red");
+// $(".card").hide();
