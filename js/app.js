@@ -26,8 +26,6 @@ function checkStatus(response) {
 
 function createProfiles(data) {
     userProfiles = data;
-
-    console.log(userProfiles);
     return userProfiles;
 }
 
