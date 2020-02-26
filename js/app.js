@@ -4,6 +4,7 @@ const body = document.getElementsByTagName("body")[0];
 
 const apiURL = "https://randomuser.me/api/?results=12&nat=ca,us,gb,nz,au";
 let userProfiles = "";
+let searchProfiles = [];
 
 fetchData(apiURL);
 function fetchData() {
@@ -25,13 +26,14 @@ function checkStatus(response) {
 }
 
 function createProfiles(data) {
-    userProfiles = data;
+    userProfiles = data.results;
+    console.log(userProfiles);
     return userProfiles;
 }
 
 function createCards(data) {
     let users = "";
-    data.results.forEach(user => {
+    data.forEach(user => {
         users += `<div class="card">
         <div class="card-img-container">
             <img class="card-img" src="${user.picture.medium}" alt="profile picture">
@@ -56,7 +58,7 @@ function createCards(data) {
 }
 
 function showModal(index) {
-    const userID = userProfiles.results[index];
+    const userID = userProfiles[index];
     console.log(userID);
     const img = userID.picture.medium;
     const name = `${userID.name.first} ${userID.name.last}`;
@@ -150,6 +152,7 @@ function createSearch(data) {
         const searchResults = [];
         if (text != "" && text.length > 2) {
             cards.forEach(card => {
+                console.log(card);
                 const name = card.lastElementChild.firstElementChild.textContent.toLowerCase();
                 if (name.includes(text)) {
                     gallery.innerHTML = "";
