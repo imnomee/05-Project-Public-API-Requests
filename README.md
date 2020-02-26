@@ -2,6 +2,8 @@
 
 https://imnomee.github.io/Public-API-Requests/
 
+Above is the link of this repo website, if you want to see the API in action.
+
 In this project, we fetched Random User Data from an API (randomuser.me).
 We fetch 12 results and displayed their information on the page,
 including picture, name, email, city and state.
