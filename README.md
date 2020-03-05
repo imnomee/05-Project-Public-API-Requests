@@ -1,7 +1,5 @@
 # UNIT 5 PROJECT - Public API Requests
 
-https://imnomee.github.io/Public-API-Requests/
-
 Above is the link of this repo website, if you want to see the API in action.
 
 In this project, we fetched Random User Data from an API (randomuser.me).
