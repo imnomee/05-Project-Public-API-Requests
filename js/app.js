@@ -1,17 +1,9 @@
-const gallery = document.getElementById("gallery"); //Gallery to draw cards
-const searchContainer = document.getElementsByClassName("search-container")[0]; //Container for search
-const body = document.getElementsByTagName("body")[0]; //Main body
+const gallery = document.getElementById('gallery'); //Gallery to draw cards
+const searchContainer = document.getElementsByClassName('search-container')[0]; //Container for search
+const body = document.getElementsByTagName('body')[0]; //Main body
 
-<<<<<<< HEAD
-getUsers(url);
-
-async function getUsers(url) {
-    const response = await fetch(url);
-    if (response.ok !== true) {
-        console.error('Error fetching data');
-=======
-const apiURL = "https://randomuser.me/api/?results=12&nat=ca,us,gb,nz,au"; //Api URL to fetch
-let userProfiles = ""; //Saving user Profiles in this variables to start with
+const apiURL = 'https://randomuser.me/api/?results=12&nat=ca,us,gb,nz,au'; //Api URL to fetch
+let userProfiles = ''; //Saving user Profiles in this variables to start with
 
 fetchData(apiURL);
 
@@ -26,10 +18,10 @@ fetchData(apiURL);
 function fetchData() {
     fetch(apiURL)
         .then(checkStatus)
-        .then(response => response.json())
+        .then((response) => response.json())
         .then(createSearch)
         .then(createCards)
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
 }
 
 //Checking status of the response, if okay proceed, if not throw error
@@ -38,110 +30,9 @@ function checkStatus(response) {
         return Promise.resolve(response);
     } else {
         return Promise.reject(new Error(response.statusText));
->>>>>>> parent of d77a4fe (start)
     }
-    const data = await response.json();
-    users = data.results;
-    console.log(users);
-    createCards(users);
 }
 
-<<<<<<< HEAD
-function createCards(users) {
-    users.forEach((user) => {
-        const name =
-            user.name.title + '. ' + user.name.first + ' ' + user.name.last;
-        const email = user.email;
-        const thumbnail = user.picture.thumbnail;
-        const city = user.location.city;
-        const state = user.location.state;
-        const card = document.createElement('div');
-        card.classList.add('card');
-        card.innerHTML = `
-            <div class="card-img-container">
-                <img class="card-img" src="${thumbnail}" alt="profile picture">
-            </div>
-            <div class="card-info-container">
-                <h3 id="name" class="card-name cap">${name}</h3>
-                <p class="card-text">${email}</p>
-                <p class="card-text cap">${city}, ${state}</p>
-            </div>`;
-        gallery.appendChild(card);
-    });
-}
-
-gallery.addEventListener('click', (e) => {
-    const email = e.target
-        .closest('.card')
-        .lastElementChild.querySelector('.card-text').innerText;
-    console.log(email);
-
-    users.forEach((user, i) => {
-        if (user.email === email) {
-            const modal = document.createElement('div');
-            modal.classList.add('modal-container');
-            modal.innerHTML = `
-            <div class="modal">
-                <button
-                    type="button"
-                    id="modal-close-btn"
-                    class="modal-close-btn">
-                    <strong>X</strong>
-                </button>
-                <div class="modal-info-container">
-                    <img
-                        class="modal-img"
-                        src="${user.picture.large}"
-                        alt="profile picture" />
-                    <h3 id="name" class="modal-name cap">${user.name.first}</h3>
-                    <p class="modal-text">${user.email}</p>
-                    <p class="modal-text cap">${user.location.city}</p>
-                    <hr />
-                    <p class="modal-text">${user.phone}</p>
-                    <p class="modal-text">
-                        ${user.location.street.number} ${
-                user.location.street.name
-            }, ${user.location.country},<br>${user.location.state} ${
-                user.location.postcode
-            }
-                    </p>
-                    <p class="modal-text">Birthday: ${dateFormat(
-                        user.dob.date
-                    )}</p>
-                </div>
-            </div>
-
-            // IMPORTANT: Below is only for exceeds tasks
-            <div class="modal-btn-container">
-                <button type="button" id="modal-prev" class="modal-prev btn">
-                    Prev
-                </button>
-                <button type="button" id="modal-next" class="modal-next btn">
-                    Next
-                </button>
-            </div>
-            `;
-            body.appendChild(modal);
-        }
-    });
-    const modalbtn = document.getElementById('modal-close-btn');
-    modalbtn.addEventListener('click', () => {
-        const modal = document.querySelector('.modal-container');
-        modal.remove();
-    });
-});
-
-document.addEventListener('keydown', (e) => {
-    const modal = document.querySelector('.modal-container');
-    if (modal && e.key === 'Escape') {
-        modal.remove();
-    }
-});
-
-function dateFormat(date) {
-    const dob = new Date(date);
-    return dob.toLocaleDateString();
-=======
 //This function creates the search element and passing the userProfiles.
 function createSearch(data) {
     userProfiles = data.results; //setting userProfiles to data.results only
@@ -150,22 +41,23 @@ function createSearch(data) {
     <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
 </form>`;
 
-    const searchInput = document.getElementById("search-input"); //Search input field
-    const searchBtn = document.getElementById("search-submit"); //search submit button
+    const searchInput = document.getElementById('search-input'); //Search input field
+    const searchBtn = document.getElementById('search-submit'); //search submit button
 
     //Search submit buttons listener
-    searchBtn.addEventListener("click", e => {
+    searchBtn.addEventListener('click', (e) => {
         e.preventDefault(); // preventing default behaviour
         const text = searchInput.value.toLowerCase();
         const searchResults = []; //empty search array only used for search results
-        if (text != "" && text.length > 2) {
+        if (text != '' && text.length > 2) {
             //if input not null and more than 2 characters
-            userProfiles.forEach(profile => {
+            userProfiles.forEach((profile) => {
                 // search all userProfiles json name text
-                const name = `${profile.name.first} ${profile.name.last}`.toLowerCase();
+                const name =
+                    `${profile.name.first} ${profile.name.last}`.toLowerCase();
                 // if it has name
                 if (name.includes(text)) {
-                    gallery.innerHTML = ""; //clear the gallery
+                    gallery.innerHTML = ''; //clear the gallery
                     searchResults.push(profile); // push the profile to search array, do that for all matches
                 }
             });
@@ -188,7 +80,7 @@ function createSearch(data) {
             // create cards using all profiles
             createCards(userProfiles);
         }
-        searchInput.value = ""; // clear the search input
+        searchInput.value = ''; // clear the search input
     });
 
     return userProfiles; // return profiles
@@ -201,8 +93,8 @@ You can pass search results or all profiles
 */
 
 function createCards(data) {
-    let profiles = "";
-    data.forEach(user => {
+    let profiles = '';
+    data.forEach((user) => {
         profiles += `<div class="card">
         <div class="card-img-container">
             <img class="card-img" src="${user.picture.medium}" alt="profile picture">
@@ -218,13 +110,13 @@ function createCards(data) {
     gallery.innerHTML = profiles; // Setting gallery container innerHTML to profiles created
 
     //Query all the cards and add event listener on all
-    const cards = document.querySelectorAll(".card");
+    const cards = document.querySelectorAll('.card');
     cards.forEach((card, value) => {
         /*Here in for each method we have used default value paramenter
         which stores the Index value of current card
         that gives us the index of the current card
         */
-        card.addEventListener("click", () => {
+        card.addEventListener('click', () => {
             /* here we used the index we got from the forEach and 
              created a modal using the index and array passed in
             
@@ -257,8 +149,8 @@ function showModal(arr, index) {
     const rawDOB = new Date(userID.dob.date);
     const dob = rawDOB.toLocaleDateString(); //this toLocaleDateString formats the date passed in
 
-    const modalContainer = document.createElement("div"); //Main modal container
-    modalContainer.className = "modal-container";
+    const modalContainer = document.createElement('div'); //Main modal container
+    modalContainer.className = 'modal-container';
     body.appendChild(modalContainer);
     modalContainer.innerHTML = `<div class="modal">
     <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
@@ -281,32 +173,32 @@ function showModal(arr, index) {
 </div>`;
 
     //Modal close button
-    const modalCloseBtn = document.getElementById("modal-close-btn");
-    modalCloseBtn.addEventListener("click", e => {
-        if (e.target.id == "modal-close-btn") {
-            modalContainer.style.display = "none";
-            modalContainer.innerHTML = "";
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    modalCloseBtn.addEventListener('click', (e) => {
+        if (e.target.id == 'modal-close-btn') {
+            modalContainer.style.display = 'none';
+            modalContainer.innerHTML = '';
         }
     });
     //If we click outside the modal it will close
-    window.addEventListener("click", e => {
+    window.addEventListener('click', (e) => {
         if (event.target == modalContainer) {
-            modalContainer.style.display = "none";
-            modalContainer.innerHTML = "";
+            modalContainer.style.display = 'none';
+            modalContainer.innerHTML = '';
         }
     });
 
     //Modal buttons set, previous and next buttons
-    const prevBtn = document.getElementById("modal-prev");
-    const nextBtn = document.getElementById("modal-next");
-    const cards = document.querySelectorAll(".card");
+    const prevBtn = document.getElementById('modal-prev');
+    const nextBtn = document.getElementById('modal-next');
+    const cards = document.querySelectorAll('.card');
 
-    prevBtn.addEventListener("click", e => {
-        if (e.target.id == "modal-prev") {
+    prevBtn.addEventListener('click', (e) => {
+        if (e.target.id == 'modal-prev') {
             if (cards[index].previousElementSibling) {
                 //If card has previous element
-                modalContainer.style.display = "none"; //hide current modal
-                modalContainer.innerHTML = ""; //clear current modal
+                modalContainer.style.display = 'none'; //hide current modal
+                modalContainer.innerHTML = ''; //clear current modal
                 showModal(arr, index - 1); //Generate new modal (passing array and index-1 for previous)
             } else if (!cards[index].previousElementSibling) {
                 prevBtn.disabled = true; //if no previous element, disable the button
@@ -314,17 +206,16 @@ function showModal(arr, index) {
         }
     });
 
-    nextBtn.addEventListener("click", e => {
-        if (e.target.id == "modal-next") {
+    nextBtn.addEventListener('click', (e) => {
+        if (e.target.id == 'modal-next') {
             if (cards[index].nextElementSibling) {
                 //If card has next element
-                modalContainer.style.display = "none"; //hide current modal
-                modalContainer.innerHTML = ""; //clear current modal
+                modalContainer.style.display = 'none'; //hide current modal
+                modalContainer.innerHTML = ''; //clear current modal
                 showModal(arr, index + 1); //generate new modal (passing the array and index+1 for next)
             } else if (!cards[index].previousElementSibling) {
                 nextBtn.disabled = true; //if no next element, disable button
             }
         }
     });
->>>>>>> parent of d77a4fe (start)
 }
