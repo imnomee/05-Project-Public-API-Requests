@@ -13,8 +13,8 @@ fetchData(apiURL);
     3. creating search element and returning filtered profiles and saving it to userProfiles
     4. creating cards using the userProfiles passed from search method
     5. In case of any error it will catch here. 
-
 */
+
 function fetchData() {
     fetch(apiURL)
         .then(checkStatus)
